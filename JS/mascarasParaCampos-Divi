@@ -1,0 +1,24 @@
+<!-- Importando jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Importando jQuery.mask -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+<!-- Configuração das máscaras -->
+<script>
+  $(document).ready(function() {
+    $('.date').mask('11/11/1111');
+    $('.time').mask('00:00:00');
+    $('.date_time').mask('00/00/0000 00:00:00');
+    $('[data-original_id="cep"]').mask('00000-000');
+    $('[data-original_id="telefone"]').mask(PhoneMaskBehavior, nonoOptions);
+    $('[data-original_id="cpf"]').mask('000.000.000-00', {reverse: true});
+    $('.money').mask('R$ 000.000.000.000.000,00', {reverse: true});
+  });
+  //Função para aplicar a máscara para telefone ou celular de forma dinâmica
+  var PhoneMaskBehavior = function (val) {
+	return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+  }, nonoOptions = {
+    onKeyPress: function(val, e, field, options) {
+      field.mask(PhoneMaskBehavior.apply({}, arguments), options);
+	}
+  };
+</script>  
