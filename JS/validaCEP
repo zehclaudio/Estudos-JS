@@ -1,0 +1,91 @@
+<script>
+  cep = document.querySelector('#et_pb_contact_cep_0');
+  //Adiciona pattern para o input do CEP
+  cep.pattern = '[\\d]{5}-?[\\d]{3}';
+  //Evento chamado quando o input perde o foco
+  cep.addEventListener('blur', function( event ) {
+    //Condição para testar se CEP é válido
+    if (cep.validity.patternMismatch) {
+      event.target.classList.add('et_contact_error');
+      event.target.setCustomValidity('CEP inválido!');
+    }
+    else {
+      event.target.classList.remove('et_contact_error');
+      event.target.setCustomValidity('');
+      formatarCampo(cep);
+      //Confição para garantir que o campo não está vazio
+      if (!cep.validity.valueMissing) {
+        recuperarCEP(cep);
+      }
+    }
+  }, true);
+  //Função para formatar input e identificar se é CPF ou CNPJ
+  function formatarCampo(campoTexto) {
+    campoTexto.value = mascaraCep(campoTexto.value);
+  }
+  //Mascara para CEP
+  function mascaraCep(valor) {
+    return valor.replace(/(\d{5})(\d{3})/g,"\$1-\$2");
+  }
+  //Função para fazer uma requisição para a API do ViaCEP e completar os campos do endereço de forma automática
+  function recuperarCEP(campo) {
+    var cep = campo.value.replace(/\D/g, '');
+    //URL da API do ViaCEP
+    var url = 'https://viacep.com.br/ws/'+cep+'/json/';
+    var options = {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'content-type': 'application/json;charset=utf-8'
+      }
+    }
+    fetch(url, options).then(
+      function(response) { return response.json() }
+    ).then(
+      function(data) {
+        if(data.erro) {
+          campo.setCustomValidity('Não foi possível buscar o CEP!');
+          campo.classList.add('et_contact_error');
+          console.log('CEP inválido.');
+          limparCampos();
+          return;
+        }
+        campo.classList.remove('et_contact_error');
+        campo.setCustomValidity('');
+        console.log('CEP encontrado.');
+        preencheCamposComCEP(data);
+        return;
+      }
+    )
+  }
+  //Função para preencher os campos de forma automática a partir do CEP digitado
+  function preencheCamposComCEP(data) {
+    //Captura os campos em suas respectivas variáveis
+    var logradouro = document.querySelector('[data-original_id="logradouro"]')
+    var cidade = document.querySelector('[data-original_id="cidade"]')
+    var uf = document.querySelector('[data-original_id="uf"]')
+    var bairro = document.querySelector('[data-original_id="bairro"]')
+    //Altera o conteúdo dos campos
+    logradouro.value = data.logradouro;
+    cidade.value = data.localidade;
+    uf.value = data.uf;
+    bairro.value = data.bairro;
+    //Impossibilita a edição dos campos após o CEP ser encontrado
+    logradouro.disabled = true;
+    cidade.disabled = true;
+    uf.disabled = true;
+    bairro.disabled = true;
+  }
+  //Função para limpar os campos
+  function limparCampos() {
+    var logradouro = document.querySelector('[data-original_id="logradouro"]')
+    var cidade = document.querySelector('[data-original_id="cidade"]')
+    var uf = document.querySelector('[data-original_id="uf"]')
+    var bairro = document.querySelector('[data-original_id="bairro"]')
+    
+    logradouro.value = '';
+    cidade.value = '';
+    uf.value = '';
+    bairro.value = '';
+  }
+</script>
