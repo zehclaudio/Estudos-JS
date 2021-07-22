@@ -1,0 +1,226 @@
+<!-- Este código foi aplicado via GTM nas páginas dos produtos do site: https://infratran.com.br/ -->
+<!-- Aplicando estilo para os campos válidos e inválidos e criando classe para letras maiúsculas nos inputs das placas -->
+<style>
+  .uppercase { text-transform: uppercase; }
+  input:valid { border: 1px solid blue;}
+  input:invalid { border: 1px solid red; }
+</style>
+<!-- Importando jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Importando jQuery.mask -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+<!-- Configuração das máscaras -->
+<script>
+  $(document).ready(function() {
+    var botao = document.querySelector('.single_add_to_cart_button');
+    var inputs = document.querySelectorAll('input.wapf-input');
+    //Arrays que serão populados com seus respectivos inputs
+    var renavams = [];
+    var radios = [];
+    var placas = [];
+    var datas = [];
+    var cpfs = [];
+    var cpfsCnpjs = [];
+    //Insere valores para os arrays dos campos específicos
+    inputs.forEach(function(input) {
+      if (input.placeholder == 'Número RENAVAM') renavams.push(input);
+      if (input.type == 'radio') radios.push(input);
+      if (input.placeholder == 'Número da Placa') placas.push(input);
+      if (input.placeholder == 'Data de Nascimento') datas.push(input);
+      if (input.placeholder == 'Número CPF') cpfs.push(input);
+      if (input.placeholder == 'CPF/CNPJ do Proprietário') cpfsCnpjs.push(input);
+    });
+    //Aplica máscara para os campos do RENAVAM
+    renavams.forEach(function(renavam) {
+      $(renavam).mask('00000000000');
+    });
+    //Configura eventos para o radio button
+    radios.forEach(function(radio) {
+      if (radio.dataset.wapfLabel == 'Outro - Não Permitido' ||
+          radio.dataset.wapfLabel == 'Não são do RS') {
+        radio.addEventListener('change', function (event) {
+          if (!event.checked) botao.disabled = true;
+          else botao.disabled = false;
+        });
+      }
+      if (radio.dataset.wapfLabel == 'RS'||
+          radio.dataset.wapfLabel == 'As placas são do RS') {
+        radio.addEventListener('change', function (event) {
+          if (event.checked) botao.disabled = true;
+          else botao.disabled = false;
+        });
+      }
+    });
+    //Aplica máscara em todos os campos de placas
+    placas.forEach(function(placa) {
+      placa.classList.add('uppercase');
+      $(placa).mask('SSS0A00');
+    });
+    //Aplica máscara em todos os campos de data
+    datas.forEach(function(data) {
+      $(data).mask('00/00/0000');
+    });
+    //Aplica máscara e realiza validação nos campos de CPF
+    cpfs.forEach(function(cpf) {
+      $(cpf).mask('000.000.000-00', {reverse: true});
+      
+      cpf.addEventListener('blur', function( event ) {
+        //Condição para testar se o CPF ou CNPJ é válido
+        if (!validaCpfCnpj(cpf.value)) {
+          event.target.style.border = '1px solid red';
+          event.target.setCustomValidity('CPF inválido!');
+        }
+        else {
+          event.target.style.border = '1px solid blue';
+          event.target.setCustomValidity('');
+        }
+      }, true);
+    });
+    //Aplica máscara e realiza validação nos campos de CPF ou CNPJ
+    cpfsCnpjs.forEach(function(cpfCnpj) {
+      $(cpfCnpj).mask(CpfCnpjMaskBehavior, nonoOptions);
+      
+      cpfCnpj.addEventListener('blur', function( event ) {
+        //Condição para testar se o CPF ou CNPJ é válido
+        if (!validaCpfCnpj(cpfCnpj.value)) {
+          event.target.style.border = '1px solid red';
+          event.target.setCustomValidity('CPF ou CNPJ inválido!');
+        }
+        else {
+          event.target.style.border = '1px solid blue';
+          event.target.setCustomValidity('');
+        }
+      }, true);
+    });
+  });
+  //Função para aplicar a máscara para cpf ou cnpj de forma dinâmica
+  var CpfCnpjMaskBehavior = function (val) {
+	return val.replace(/\D/g, '').length <= 11 ? '000.000.000-00999' : '00.000.000/0000-00';
+  }, nonoOptions = {
+    onKeyPress: function(val, e, field, options) {
+      field.mask(CpfCnpjMaskBehavior.apply({}, arguments), options);
+	}
+  };
+  //Função para Validar CPF e CNPJ
+  function validaCpfCnpj(val) {
+    //Teste para o CPF
+    if (val.length <= 14) {
+        var cpf = val.trim();
+     
+        cpf = cpf.replace(/\./g, '');
+        cpf = cpf.replace('-', '');
+        cpf = cpf.split('');
+        
+        var v1 = 0;
+        var v2 = 0;
+        var aux = false;
+        
+        for (var i = 1; cpf.length > i; i++) {
+            if (cpf[i - 1] != cpf[i]) {
+                aux = true;   
+            }
+        } 
+        
+        if (aux == false) {
+            return false; 
+        } 
+        
+        for (var i = 0, p = 10; (cpf.length - 2) > i; i++, p--) {
+            v1 += cpf[i] * p; 
+        } 
+        
+        v1 = ((v1 * 10) % 11);
+        
+        if (v1 == 10) {
+            v1 = 0; 
+        }
+        
+        if (v1 != cpf[9]) {
+            return false; 
+        } 
+        
+        for (var i = 0, p = 11; (cpf.length - 1) > i; i++, p--) {
+            v2 += cpf[i] * p; 
+        } 
+        
+        v2 = ((v2 * 10) % 11);
+        
+        if (v2 == 10) {
+            v2 = 0; 
+        }
+        
+        if (v2 != cpf[10]) {
+            return false; 
+        } else {   
+            return true; 
+        }
+    }
+    //Teste para o CNPJ
+    else if (val.length > 14) {
+        var cnpj = val.trim();
+        
+        cnpj = cnpj.replace(/\./g, '');
+        cnpj = cnpj.replace('-', '');
+        cnpj = cnpj.replace('/', ''); 
+        cnpj = cnpj.split(''); 
+        
+        var v1 = 0;
+        var v2 = 0;
+        var aux = false;
+        
+        for (var i = 1; cnpj.length > i; i++) { 
+            if (cnpj[i - 1] != cnpj[i]) {  
+                aux = true;   
+            } 
+        } 
+        
+        if (aux == false) {  
+            return false; 
+        }
+        
+        for (var i = 0, p1 = 5, p2 = 13; (cnpj.length - 2) > i; i++, p1--, p2--) {
+            if (p1 >= 2) {  
+                v1 += cnpj[i] * p1;  
+            } else {  
+                v1 += cnpj[i] * p2;  
+            } 
+        } 
+        
+        v1 = (v1 % 11);
+        
+        if (v1 < 2) { 
+            v1 = 0; 
+        } else { 
+            v1 = (11 - v1); 
+        } 
+        
+        if (v1 != cnpj[12]) {  
+            return false; 
+        } 
+        
+        for (var i = 0, p1 = 6, p2 = 14; (cnpj.length - 1) > i; i++, p1--, p2--) { 
+            if (p1 >= 2) {  
+                v2 += cnpj[i] * p1;  
+            } else {   
+                v2 += cnpj[i] * p2; 
+            } 
+        }
+        
+        v2 = (v2 % 11); 
+        
+        if (v2 < 2) {  
+            v2 = 0;
+        } else { 
+            v2 = (11 - v2); 
+        } 
+        
+        if (v2 != cnpj[13]) {   
+            return false; 
+        } else {  
+            return true; 
+        }
+    } else {
+        return false;
+    }
+  }
+</script>
