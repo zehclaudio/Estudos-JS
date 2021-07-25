@@ -1,0 +1,67 @@
+<style>
+  @media (min-width: 450px) {
+    .card-wrapper {
+      margin: 25px 10px;
+      max-width: 100%:
+    }
+  }
+</style>
+<!-- Importando jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Importando jQuery.mask -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+<!-- Importa o script card.js diretamente do Github -->
+<script src="https://cdn.jsdelivr.net/gh/jessepollak/card/dist/card.js"></script>
+<!-- Gera o cartão virtual a partir das funções de card.js -->
+<script>
+  $(document).ready(function() {
+    <!-- Configuração das máscaras -->
+    var numeroCartao = document.querySelector('[name="et_pb_contact_número_do_cartão_1"]');
+    var validadeCartao = document.querySelector('[name="et_pb_contact_validade_(mês/ano)_1"]');
+    var codigoSegurancaCartao = document.querySelector('[name="et_pb_contact_cód._de_segurança_1"]');
+    var cpfCartao = document.querySelector('[name="et_pb_contact_cpf_do_titular_1"]');
+    
+    $(numeroCartao).mask('0000 0000 0000 0000');
+    $(validadeCartao).mask('99/9999');
+    $(codigoSegurancaCartao).mask('0009');
+    $(cpfCartao).mask('000.000.000-00', {reverse: true});
+  });
+  //Capturando o formulário e os campos a serem usados
+  var formCartao = document.querySelector('#et_pb_contact_form_1 > div.et_pb_contact > form');
+  var formDiv = document.querySelector('#et_pb_contact_form_1 > div.et_pb_contact');
+  var divEl = document.createElement('div');  
+  //Inserindo o card-wrapper anter do formulário
+  divEl.classList.add('card-wrapper');
+  formDiv.insertBefore(divEl, formCartao);
+  //Criando o cartão
+  var card = new Card({
+    // a selector or DOM element for the form where users will
+    // be entering their information
+    form: formCartao, // *required*
+    // a selector or DOM element for the container
+    // where you want the card to appear
+    container: divEl, // *required*
+    formSelectors: {
+        numberInput: '[name="et_pb_contact_número_do_cartão_1"]', // optional — default input[name="number"]
+        expiryInput: '[name="et_pb_contact_validade_(mês/ano)_1"]', // optional — default input[name="expiry"]
+        cvcInput: '[name="et_pb_contact_cód._de_segurança_1"]', // optional — default input[name="cvc"]
+        nameInput: '[name="et_pb_contact_nome_e_sobrenome_do_titular_1"]' // optional - defaults input[name="name"]
+    },
+    width: 350, // optional — default 350px
+    formatting: true, // optional - default true
+    // Strings for translation - optional
+    messages: {
+        validDate: 'Data de\nvalidade', // optional - default 'valid\nthru'
+        monthYear: 'MM/AAAA', // optional - default 'month/year'
+    },
+    // Default placeholders for rendered fields - optional
+    placeholders: {
+        number: '•••• •••• •••• ••••',
+        name: 'Nome Completo',
+        expiry: '••/••',
+        cvc: '•••'
+    },
+    // if true, will log helpful messages for setting up Card
+    debug: true // optional - default false
+  });
+</script>
