@@ -1,12 +1,12 @@
 {
-  anuncio1: 'https://media-private.canva.com/lg-FA/MAEzrclg-FA/1/s.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJWF6QO3UH4PAAJ6Q%2F20211226%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20211226T173437Z&X-Amz-Expires=39072&X-Amz-Signature=abad0ac93a7afa4ee3b1cde184052f74d71e11382c40449d6b4c63836373d4b2&X-Amz-SignedHeaders=host&response-expires=Mon%2C%2027%20Dec%202021%2004%3A25%3A49%20GMT',
-  anuncio2: 'https://media-private.canva.com/YisP8/MAEzrSYisP8/1/s.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJWF6QO3UH4PAAJ6Q%2F20211226%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20211226T054113Z&X-Amz-Expires=83384&X-Amz-Signature=1f1eee6a845eb31cb2e0f3e07b838b1f3c8db316cd8d1fcd825e83416a165f58&X-Amz-SignedHeaders=host&response-expires=Mon%2C%2027%20Dec%202021%2004%3A50%3A57%20GMT',
-  anuncio3: 'https://media-private.canva.com/ZccL8/MAEzqdZccL8/1/s.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJWF6QO3UH4PAAJ6Q%2F20211226%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20211226T063517Z&X-Amz-Expires=79372&X-Amz-Signature=8bd584f63f6e9e2cbe24eca614a9623e5fb920452b14fd0613016a8c2936ce73&X-Amz-SignedHeaders=host&response-expires=Mon%2C%2027%20Dec%202021%2004%3A38%3A09%20GMT',
-  anuncio4: 'https://media-private.canva.com/hyBLQ/MAEzqshyBLQ/1/s.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJWF6QO3UH4PAAJ6Q%2F20211226%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20211226T054242Z&X-Amz-Expires=84173&X-Amz-Signature=a98814502e17165a0bd990ba8f201bdfaafdfe6c4c5799460280ad8a7d879ee9&X-Amz-SignedHeaders=host&response-expires=Mon%2C%2027%20Dec%202021%2005%3A05%3A35%20GMT',
-  anuncio5: 'https://media-private.canva.com/iMYKk/MAEzqsiMYKk/1/s.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJWF6QO3UH4PAAJ6Q%2F20211226%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20211226T231257Z&X-Amz-Expires=21203&X-Amz-Signature=dfe74d0efc070c2d5831d91fb7f17bd33096f7650af95ff7578c8b39524dd86b&X-Amz-SignedHeaders=host&response-expires=Mon%2C%2027%20Dec%202021%2005%3A06%3A20%20GMT',
-  link1: '',
-  link2: '',
-  link3: '',
-  link4: '',
-  link5: ''
+  "anuncio1": "https://media-private.canva.com/lg-FA/MAEzrclg-FA/1/s.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJWF6QO3UH4PAAJ6Q%2F20211226%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20211226T173437Z&X-Amz-Expires=39072&X-Amz-Signature=abad0ac93a7afa4ee3b1cde184052f74d71e11382c40449d6b4c63836373d4b2&X-Amz-SignedHeaders=host&response-expires=Mon%2C%2027%20Dec%202021%2004%3A25%3A49%20GMT",
+  "anuncio2": "https://media-private.canva.com/YisP8/MAEzrSYisP8/1/s.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJWF6QO3UH4PAAJ6Q%2F20211226%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20211226T054113Z&X-Amz-Expires=83384&X-Amz-Signature=1f1eee6a845eb31cb2e0f3e07b838b1f3c8db316cd8d1fcd825e83416a165f58&X-Amz-SignedHeaders=host&response-expires=Mon%2C%2027%20Dec%202021%2004%3A50%3A57%20GMT",
+  "anuncio3": "https://media-private.canva.com/ZccL8/MAEzqdZccL8/1/s.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJWF6QO3UH4PAAJ6Q%2F20211226%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20211226T063517Z&X-Amz-Expires=79372&X-Amz-Signature=8bd584f63f6e9e2cbe24eca614a9623e5fb920452b14fd0613016a8c2936ce73&X-Amz-SignedHeaders=host&response-expires=Mon%2C%2027%20Dec%202021%2004%3A38%3A09%20GMT",
+  "anuncio4": "https://media-private.canva.com/hyBLQ/MAEzqshyBLQ/1/s.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJWF6QO3UH4PAAJ6Q%2F20211226%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20211226T054242Z&X-Amz-Expires=84173&X-Amz-Signature=a98814502e17165a0bd990ba8f201bdfaafdfe6c4c5799460280ad8a7d879ee9&X-Amz-SignedHeaders=host&response-expires=Mon%2C%2027%20Dec%202021%2005%3A05%3A35%20GMT",
+  "anuncio5": "https://media-private.canva.com/iMYKk/MAEzqsiMYKk/1/s.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJWF6QO3UH4PAAJ6Q%2F20211226%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20211226T231257Z&X-Amz-Expires=21203&X-Amz-Signature=dfe74d0efc070c2d5831d91fb7f17bd33096f7650af95ff7578c8b39524dd86b&X-Amz-SignedHeaders=host&response-expires=Mon%2C%2027%20Dec%202021%2005%3A06%3A20%20GMT",
+  "link1": "",
+  "link2": "",
+  "link3": "",
+  "link4": "",
+  "link5": ""
 }
