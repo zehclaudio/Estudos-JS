@@ -1,0 +1,123 @@
+<body>
+  <!-- Display the countdown timer in an element -->
+  <div id="counter" class="countimer">
+    <div class="promo"><span class="promo">Promoção</span><br />encerra em:</div>
+    <div class="timer">
+      <div class="clock">
+        <div class="days">
+          <div id="days">
+            <span class="first">0</span><span class="second">0</span>
+          </div>
+          <div class="label">Dias</div>
+        </div>
+        <span class="divider">:</span>
+        <div class="hours">
+          <div id="hours">
+            <span class="first">0</span><span class="second">0</span>
+          </div>
+          <div class="label">Horas</div>
+        </div>
+        <span class="divider">:</span>
+        <div class="minutes">
+          <div id="minutes">
+            <span class="first">0</span><span class="second">0</span>
+          </div>
+          <div class="label">Mins</div>
+        </div>
+        <span class="divider">:</span>
+        <div class="seconds">
+          <div id="seconds">
+            <span class="first">0</span><span class="second">0</span>
+          </div>
+          <div class="label">Segs</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .countimer {
+      align-items: center;
+      background-color: #c0392b;
+      border-radius: 10px;
+      box-sizing: border-box;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 20px;
+      position: relative;
+    }
+
+    .countimer .timer {
+      position: relative;
+    }
+
+    .countimer span.promo {
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .countimer .clock {
+      align-items: center;
+      display: flex;
+      font-size: 22px;
+      justify-content: center;
+      position: relative;
+      text-align: center;
+    }
+
+    .countimer span:not(.promo):not(.divider) {
+      background-color: #fff;
+      border-radius: 5px;
+      color: #000;
+      margin: 0 2.5px;
+      padding: 5px;
+    }
+
+    .countimer .label {
+      font-size: 12px;
+      margin-top: 5px;
+    }
+
+    .countimer .clock .divider {
+      font-size: 60px;
+      padding: 0 5px 10px;
+    }
+  </style>
+
+  <script>
+    // Update the count down every 1 second
+    // Get today's date and time
+    var now = new Date().getTime();
+    // Define an additional interval to current date
+    var minutes = 20;
+    // Set the date we're counting down to
+    var countDownDate = new Date(now + minutes * 60000);
+    // Find the difference between now and the count down date
+    var difference = countDownDate - now;
+
+    var x = setInterval(function () {
+      // Time calculations for days, hours, minutes and seconds
+      var days = Math.floor(difference / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((difference % (1000 * 60)) / 1000);
+      // Display the result in the element with id="demo"
+      document.querySelector('#days .first').innerText = String(days).split('')[0] || '0';
+      document.querySelector('#days .second').innerText = String(days).split('')[1] || '0';
+      document.querySelector('#hours .first').innerText = String(hours).split('')[0] || '0';
+      document.querySelector('#hours .second').innerText = String(hours).split('')[1] || '0';
+      document.querySelector('#minutes .first').innerText = String(minutes).split('')[0] || '0';
+      document.querySelector('#minutes .second').innerText = String(minutes).split('')[1] || '0';
+      document.querySelector('#seconds .first').innerText = String(seconds).split('')[0] || '0';
+      document.querySelector('#seconds .second').innerText = String(seconds).split('')[1] || '0';
+
+      difference = difference - 1000;
+      // If the count down is finished, write some text
+      if (difference < 0) {
+        clearInterval(x);
+        document.getElementById('counter').innerHTML = 'EXPIRED';
+      }
+    }, 1000);
+  </script>
+</body>
